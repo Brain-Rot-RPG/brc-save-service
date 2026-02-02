@@ -1,0 +1,32 @@
+version: "3.9"
+services:
+  battle-service:
+    build: .
+    container_name: brc-battle-service
+    restart: unless-stopped
+    environment:
+      PORT: 4010
+      PGHOST: postgres
+      PGPORT: 5432
+      PGDATABASE: brc_battle
+      PGUSER: brc_battle_user
+      PGPASSWORD: brc_battle_password
+    ports:
+      - "4008:4008"
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:16
+    container_name: brc-battle-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: brc_battle
+      POSTGRES_USER: brc_battle_user
+      POSTGRES_PASSWORD: brc_battle_password
+    ports:
+      - "5433:5432"
+    volumes:
+      - brc_battle_pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+volumes:
+  brc_battle_pgdata:

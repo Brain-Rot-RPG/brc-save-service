@@ -1,0 +1,200 @@
+openapi: 3.0.0
+info:
+  title: Save Microservice
+  version: 1.0.0
+  description: Service de gestion des sauvegardes de progression et donjons des joueurs.
+
+servers:
+  - url: http://localhost:3000
+    description: Serveur de développement
+
+paths:
+  /:
+    get:
+      summary: Récupérer toutes les sauvegardes
+      tags:
+        - Saves
+      responses:
+        '200':
+          description: Liste de toutes les sauvegardes
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Save'
+        '500':
+          description: Erreur serveur
+
+    post:
+      summary: Créer une nouvelle sauvegarde
+      tags:
+        - Saves
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveCreate'
+      responses:
+        '201':
+          description: Sauvegarde créée avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Save'
+        '400':
+          description: Erreur de validation des données
+        '500':
+          description: Erreur serveur
+
+  /{id}:
+    get:
+      summary: Récupérer une sauvegarde par ID
+      tags:
+        - Saves
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID numérique de la sauvegarde
+      responses:
+        '200':
+          description: Sauvegarde trouvée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Save'
+        '404':
+          description: Sauvegarde non trouvée
+        '500':
+          description: Erreur serveur
+
+    put:
+      summary: Mettre à jour une sauvegarde
+      tags:
+        - Saves
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID numérique de la sauvegarde
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveUpdate'
+      responses:
+        '200':
+          description: Sauvegarde mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Save'
+        '404':
+          description: Sauvegarde non trouvée
+        '400':
+          description: Erreur de validation des données
+        '500':
+          description: Erreur serveur
+
+    delete:
+      summary: Supprimer une sauvegarde
+      tags:
+        - Saves
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: ID numérique de la sauvegarde
+      responses:
+        '200':
+          description: Sauvegarde supprimée avec succès
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '404':
+          description: Sauvegarde non trouvée
+        '500':
+          description: Erreur serveur
+
+components:
+  schemas:
+    Save:
+      type: object
+      required:
+        - id
+        - realizedDungeons
+        - currentDungeonId
+        - currentFightId
+        - playerId
+      properties:
+        id:
+          type: integer
+          description: Identifiant unique de la sauvegarde
+        realizedDungeons:
+          type: array
+          items:
+            type: integer
+          description: Liste des IDs des donjons complétés
+        currentDungeonId:
+          type: integer
+          description: ID du donjon actuel
+        currentFightId:
+          type: integer
+          description: ID du combat actuel
+        playerId:
+          type: integer
+          description: ID du joueur
+
+    SaveCreate:
+      type: object
+      required:
+        - realizedDungeons
+        - currentDungeonId
+        - currentFightId
+        - playerId
+      properties:
+        realizedDungeons:
+          type: array
+          items:
+            type: integer
+          description: Liste des IDs des donjons complétés
+        currentDungeonId:
+          type: integer
+          description: ID du donjon actuel
+        currentFightId:
+          type: integer
+          description: ID du combat actuel
+        playerId:
+          type: integer
+          description: ID du joueur
+
+    SaveUpdate:
+      type: object
+      properties:
+        realizedDungeons:
+          type: array
+          items:
+            type: integer
+          description: Liste des IDs des donjons complétés
+        currentDungeonId:
+          type: integer
+          description: ID du donjon actuel
+        currentFightId:
+          type: integer
+          description: ID du combat actuel
+        playerId:
+          type: integer
+          description: ID du joueur
