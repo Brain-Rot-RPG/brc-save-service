@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/', battleRoutes);
+app.use('/api/v1/save', battleRoutes);
 
 app.use(errorHandler);
 

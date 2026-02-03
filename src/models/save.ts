@@ -1,5 +1,5 @@
 export interface Save {
-  id: number;
+  id?: number;
   realizedDungeons: number[];
   currentDungeonId: number;
   currentFightId: number,

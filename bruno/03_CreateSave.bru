@@ -1,0 +1,35 @@
+meta {
+  name: Save Service - Create Save
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:4005/api/v1/save
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "realizedDungeons": [1, 2],
+    "currentDungeonId": 3,
+    "currentFightId": 5,
+    "playerId": 1
+  }
+}
+
+tests {
+  test("Status is 201", function() {
+    expect(res.getStatus()).to.equal(201);
+  });
+  
+  test("Response has required fields", function() {
+    const body = res.getBody();
+    expect(body).to.have.property('id');
+    expect(body).to.have.property('realizedDungeons');
+    expect(body).to.have.property('currentDungeonId');
+    expect(body).to.have.property('currentFightId');
+    expect(body).to.have.property('playerId');
+  });
+}

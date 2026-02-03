@@ -1,0 +1,27 @@
+meta {
+  name: Save Service - Update Save
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/save/1
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "realizedDungeons": [1, 2, 3],
+    "currentDungeonId": 4,
+    "currentFightId": 10,
+    "playerId": 1
+  }
+}
+
+tests {
+  test("Status is 200 or 404", function() {
+    const status = res.getStatus();
+    expect([200, 404]).to.include(status);
+  });
+}
