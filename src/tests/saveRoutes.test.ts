@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../app";
-import pool from "../db/db";
+import app from "../app.js";
+import pool from "../db/db.js";
 
 jest.mock("../db/db", () => ({
   __esModule: true,

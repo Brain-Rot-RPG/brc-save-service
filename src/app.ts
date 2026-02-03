@@ -1,6 +1,6 @@
 import express from 'express';
-import battleRoutes from './routes/saveRoutes';
-import { errorHandler } from './middlewares/errorHandler';
+import battleRoutes from './routes/saveRoutes.js';
+import { errorHandler } from './middlewares/errorHandler.js';
 
 const app = express();
 

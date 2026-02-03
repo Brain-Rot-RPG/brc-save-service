@@ -5,7 +5,7 @@ import {
   getSaveById,
   updateSave,
   deleteSave
-} from '../controllers/saveController';
+} from '../controllers/saveController.js';
 
 const router = Router();
 

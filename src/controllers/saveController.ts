@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { Save } from '../models/save';
-import pool from '../db/db';
+import { Save } from '../models/save.js';
+import pool from '../db/db.js';
 
 export const createSave = (req: Request, res: Response, next: NextFunction) => {
     try {
