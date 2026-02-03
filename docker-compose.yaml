@@ -12,7 +12,7 @@ services:
       PGUSER: brc_battle_user
       PGPASSWORD: brc_battle_password
     ports:
-      - "4008:4008"
+      - "4010:4010"
     depends_on:
       - postgres
   postgres:
