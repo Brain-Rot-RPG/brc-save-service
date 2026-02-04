@@ -1,7 +1,7 @@
 export interface Save {
   id?: number;
-  realizedDungeons: (number | string)[];
-  currentDungeonId: number | string;
+  realizedDungeons: number[];
+  currentDungeonId: number;
   currentFightId: number,
   playerId: number | string
 }

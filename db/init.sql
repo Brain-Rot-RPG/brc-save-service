@@ -1,7 +1,7 @@
 CREATE TABLE saves (
     id SERIAL PRIMARY KEY,
-    realizedDungeons TEXT[],
-    currentDungeonId TEXT,
+    realizedDungeons INTEGER[],
+    currentDungeonId INTEGER,
     currentFightId INTEGER,
     playerId TEXT
 );
