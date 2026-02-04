@@ -139,6 +139,7 @@ components:
         - currentDungeonId
         - currentFightId
         - playerId
+        - userId
       properties:
         id:
           type: integer
@@ -157,6 +158,9 @@ components:
         playerId:
           type: integer
           description: ID du joueur
+        userId:
+          type: integer
+          description: ID de l'utilisateur propriétaire
 
     SaveCreate:
       type: object
@@ -165,6 +169,7 @@ components:
         - currentDungeonId
         - currentFightId
         - playerId
+        - userId
       properties:
         realizedDungeons:
           type: array
@@ -180,6 +185,9 @@ components:
         playerId:
           type: integer
           description: ID du joueur
+        userId:
+          type: integer
+          description: ID de l'utilisateur propriétaire
 
     SaveUpdate:
       type: object
@@ -198,3 +206,6 @@ components:
         playerId:
           type: integer
           description: ID du joueur
+        userId:
+          type: integer
+          description: ID de l'utilisateur propriétaire

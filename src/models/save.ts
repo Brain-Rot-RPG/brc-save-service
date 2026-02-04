@@ -4,4 +4,5 @@ export interface Save {
   currentDungeonId: number;
   currentFightId: number,
   playerId: number | string
+  userId: number | string
 }

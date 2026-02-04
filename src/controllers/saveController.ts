@@ -4,10 +4,10 @@ import pool from '../db/db.js';
 
 export const createSave = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { realizedDungeons, currentDungeonId, currentFightId, playerId } = req.body;
-        const newSave: Save = { realizedDungeons, currentDungeonId, currentFightId, playerId };
-        const query = 'INSERT INTO saves (realizedDungeons, currentDungeonId, currentFightId, playerId) VALUES ($1, $2, $3, $4) RETURNING *';
-        const values = [newSave.realizedDungeons, newSave.currentDungeonId, newSave.currentFightId, newSave.playerId];
+        const { realizedDungeons, currentDungeonId, currentFightId, playerId, userId } = req.body;
+        const newSave: Save = { realizedDungeons, currentDungeonId, currentFightId, playerId, userId };
+        const query = 'INSERT INTO saves (realizedDungeons, currentDungeonId, currentFightId, playerId, userId) VALUES ($1, $2, $3, $4, $5) RETURNING *';
+        const values = [newSave.realizedDungeons, newSave.currentDungeonId, newSave.currentFightId, newSave.playerId, newSave.userId];
     
         pool.query(query, values)
         .then((result) => {
@@ -60,9 +60,9 @@ export const getSaveById = (req: Request, res: Response, next: NextFunction) => 
 export const updateSave = (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id as string, 10);
-    const { realizedDungeons, currentDungeonId, currentFightId, playerId } = req.body;
-    const query = 'UPDATE saves SET realizedDungeons = $1, currentDungeonId = $2, currentFightId = $3, playerId = $4 WHERE id = $5 RETURNING *';
-    const values = [realizedDungeons, currentDungeonId, currentFightId, playerId, id];
+    const { realizedDungeons, currentDungeonId, currentFightId, playerId, userId } = req.body;
+    const query = 'UPDATE saves SET realizedDungeons = $1, currentDungeonId = $2, currentFightId = $3, playerId = $4, userId = $5 WHERE id = $6 RETURNING *';
+    const values = [realizedDungeons, currentDungeonId, currentFightId, playerId, userId, id];
     pool.query(query, values)
       .then((result) => {
         if (result.rows.length === 0) {

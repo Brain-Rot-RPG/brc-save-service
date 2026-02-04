@@ -3,5 +3,6 @@ CREATE TABLE saves (
     realizedDungeons INTEGER[],
     currentDungeonId INTEGER,
     currentFightId INTEGER,
-    playerId TEXT
+    playerId TEXT,
+    userId TEXT
 );
