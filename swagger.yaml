@@ -161,6 +161,10 @@ components:
         userId:
           type: integer
           description: ID de l'utilisateur propriétaire
+        playerPos:
+          type: string
+          default: 'start'
+          description: Position actuelle du joueur dans le donjon
 
     SaveCreate:
       type: object
@@ -188,6 +192,10 @@ components:
         userId:
           type: integer
           description: ID de l'utilisateur propriétaire
+        playerPos:
+          type: string
+          default: 'start'
+          description: Position actuelle du joueur dans le donjon
 
     SaveUpdate:
       type: object
@@ -209,3 +217,6 @@ components:
         userId:
           type: integer
           description: ID de l'utilisateur propriétaire
+        playerPos:
+          type: string
+          description: Position actuelle du joueur dans le donjon

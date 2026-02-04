@@ -4,10 +4,17 @@ import pool from '../db/db.js';
 
 export const createSave = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const { realizedDungeons, currentDungeonId, currentFightId, playerId, userId } = req.body;
-        const newSave: Save = { realizedDungeons, currentDungeonId, currentFightId, playerId, userId };
-        const query = 'INSERT INTO saves (realizedDungeons, currentDungeonId, currentFightId, playerId, userId) VALUES ($1, $2, $3, $4, $5) RETURNING *';
-        const values = [newSave.realizedDungeons, newSave.currentDungeonId, newSave.currentFightId, newSave.playerId, newSave.userId];
+        const { realizedDungeons, currentDungeonId, currentFightId, playerId, userId, playerPos } = req.body;
+        const newSave: Save = { 
+            realizedDungeons, 
+            currentDungeonId, 
+            currentFightId, 
+            playerId, 
+            userId,
+            playerPos: playerPos || 'start'
+        };
+        const query = 'INSERT INTO saves (realizedDungeons, currentDungeonId, currentFightId, playerId, userId, playerPos) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+        const values = [newSave.realizedDungeons, newSave.currentDungeonId, newSave.currentFightId, newSave.playerId, newSave.userId, newSave.playerPos];
     
         pool.query(query, values)
         .then((result) => {
@@ -60,9 +67,9 @@ export const getSaveById = (req: Request, res: Response, next: NextFunction) => 
 export const updateSave = (req: Request, res: Response, next: NextFunction) => {
   try {
     const id = parseInt(req.params.id as string, 10);
-    const { realizedDungeons, currentDungeonId, currentFightId, playerId, userId } = req.body;
-    const query = 'UPDATE saves SET realizedDungeons = $1, currentDungeonId = $2, currentFightId = $3, playerId = $4, userId = $5 WHERE id = $6 RETURNING *';
-    const values = [realizedDungeons, currentDungeonId, currentFightId, playerId, userId, id];
+    const { realizedDungeons, currentDungeonId, currentFightId, playerId, userId, playerPos } = req.body;
+    const query = 'UPDATE saves SET realizedDungeons = $1, currentDungeonId = $2, currentFightId = $3, playerId = $4, userId = $5, playerPos = $6 WHERE id = $7 RETURNING *';
+    const values = [realizedDungeons, currentDungeonId, currentFightId, playerId, userId, playerPos || 'start', id];
     pool.query(query, values)
       .then((result) => {
         if (result.rows.length === 0) {

@@ -5,4 +5,5 @@ export interface Save {
   currentFightId: number,
   playerId: number | string
   userId: number | string
+  playerPos: string
 }
